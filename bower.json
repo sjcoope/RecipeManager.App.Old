@@ -1,0 +1,23 @@
+{
+  "name": "SJCNet.RecipeManager.App",
+  "version": "0.0.1",
+  "authors": [
+    "sjcoope <simon.coope@sjcnet.co.uk>"
+  ],
+  "description": "An angularJS recipemanager",
+  "license": "MIT",
+  "homepage": "www.sjcnet.co.uk",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "scripts",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.3",
+    "angular": "~1.3.11",
+    "angular-route": "~1.3.11",
+    "bootstrap": "~3.3.2"
+  }
+}

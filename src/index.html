@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Recipe Manager</title>
+
+    <!-- bower:css -->
+    <link rel="stylesheet" href="scripts/bootstrap/dist/css/bootstrap.css" />
+    <!-- endbower-->
+
+    <!-- inject:css -->
+    <link rel="stylesheet" href="/src/content/css/custom.css">
+    <!-- endinject -->
+</head>
+<body data-ng-app="RecipeManager.App">
+
+<div data-ng-include data-src="'app/areas/layout/shell.html'"></div>
+
+<!-- bower:js -->
+<script src="scripts/jquery/dist/jquery.js"></script>
+<script src="scripts/angular/angular.js"></script>
+<script src="scripts/angular-route/angular-route.js"></script>
+<script src="scripts/bootstrap/dist/js/bootstrap.js"></script>
+<!-- endbower-->
+
+<!-- inject:js -->
+<script src="/src/app/app.module.js"></script>
+<script src="/src/app/areas/layout/_layout.module.js"></script>
+<script src="/src/app/areas/welcome/_welcome.module.js"></script>
+<script src="/src/app/core/router/_router.module.js"></script>
+<script src="/src/app/areas/layout/header.ctrl.js"></script>
+<script src="/src/app/areas/layout/navigation.ctrl.js"></script>
+<script src="/src/app/areas/layout/shell.ctrl.js"></script>
+<script src="/src/app/areas/welcome/about.ctrl.js"></script>
+<script src="/src/app/areas/welcome/features.ctrl.js"></script>
+<script src="/src/app/areas/welcome/welcome.ctrl.js"></script>
+<!-- endinject -->
+
+</body>
+</html>

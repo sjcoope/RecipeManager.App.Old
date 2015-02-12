@@ -1,0 +1,13 @@
+<div class="container-fluid" data-ng-controller="ShellCtrl as vm">
+    <div class="row">
+        <div class="col-md-12" data-ng-include data-src="'app/areas/layout/header.html'"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="well navigation" data-ng-include data-src="'/app/areas/layout/navigation.html'"></div>
+        </div>
+        <div class="col-md-9">
+            <div class="well main-content" data-ng-view></div>
+        </div>
+    </div>
+</div>
