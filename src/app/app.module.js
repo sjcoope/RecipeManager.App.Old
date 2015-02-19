@@ -7,6 +7,7 @@
             // Third Party Modules
 
             // Custom Core Modules
+            'RecipeManager.App.Core',
             'RecipeManager.App.Routing',
 
             // Custom Area Modules
