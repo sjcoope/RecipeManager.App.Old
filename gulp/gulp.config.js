@@ -19,7 +19,9 @@ module.exports = function () {
             release: {
                 root: releaseRoot,
                 fonts: releaseRoot + 'content/fonts/',
-                images: releaseRoot + 'content/images/'
+                images: releaseRoot + 'content/images/',
+                jsLibFile: 'lib.js',
+                jsAppFile: 'app.js'
             }
         },
         app: {
@@ -38,6 +40,11 @@ module.exports = function () {
             ]
         },
         project: {
+            root: './',
+            packages: [
+                './package.json',
+                './bower.json'
+            ],
             jsFiles: [
                 appRoot + '**/*.js',
                 './*.js',

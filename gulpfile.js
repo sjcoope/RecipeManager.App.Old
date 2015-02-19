@@ -149,7 +149,9 @@ gulp.task('optimise', ['inject'], function () {
 
     var assets = $.useref.assets({searchPath: './'});
     var cssFilter = $.filter('**/*.css');
-    var jsFilter = $.filter('**/*.js');
+    //var jsFilter = $.filter('**/*.js');
+    var jsLibFilter = $.filter('**/' + config.build.release.jsLibFile);
+    var jsAppFilter = $.filter('**/' + config.build.release.jsAppFile);
 
     return gulp
         .src(config.app.indexFile)
@@ -164,12 +166,21 @@ gulp.task('optimise', ['inject'], function () {
         .pipe(cssFilter)
         .pipe($.csso())
         .pipe(cssFilter.restore())
-        // Javascript Optimization
-        .pipe(jsFilter)
+        // Lib Javascript Optimization
+        .pipe(jsLibFilter)
         .pipe($.uglify())
-        .pipe(jsFilter.restore())
+        .pipe(jsLibFilter.restore())
+        // App Javascript Optimization
+        .pipe(jsAppFilter)
+        .pipe($.ngAnnotate())
+        .pipe($.uglify())
+        .pipe(jsAppFilter.restore())
+        // File Name Versioning
+        .pipe($.rev())
         .pipe(assets.restore())
         .pipe($.useref())
+        // Rename Versioned Files
+        .pipe($.revReplace())
         .pipe(gulp.dest(config.build.release.root))
 });
 
@@ -178,6 +189,37 @@ gulp.task('build', ['optimise', 'images', 'fonts'], function () {
 
     // Remove the dev build
     helper.clean(config.build.dev.root);
+});
+
+/* Versioning Tasks
+--------------------*/
+/**
+ * Bump the version
+ * --type=pre will bump the prerelease version *.*.*-x
+ * --type=patch or no flag will bump the patch version *.*.x
+ * --type=minor will bump the minor version *.x.*
+ * --type=major will bump the major version x.*.*
+ * --version=1.2.3 will bump to a specific version and ignore other flags
+ */
+gulp.task('increment-version', function() {
+    var msg = 'Incrementing versions';
+    var type = args.type;
+    var version = args.version;
+    var options = {};
+    if (version) {
+        options.version = version;
+        msg += ' to ' + version;
+    } else {
+        options.type = type;
+        msg += ' for a ' + type;
+    }
+    helper.log(msg);
+
+    return gulp
+        .src(config.project.packages)
+        .pipe($.print())
+        .pipe($.bump(options))
+        .pipe(gulp.dest(config.project.root));
 });
 
 /* Serve Tasks
@@ -191,3 +233,4 @@ gulp.task('serve-dev', ['inject'], function () {
 gulp.task('serve-build', ['build'], function () {
     return helper.serve(false);
 });
+
