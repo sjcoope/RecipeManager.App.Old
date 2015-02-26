@@ -1,4 +1,5 @@
 module.exports = function () {
+    /*jslint node: true */
     'use strict';
 
     // Dependencies
@@ -81,6 +82,28 @@ module.exports = function () {
                 .on('exit', function () {
                     log('*** nodemon exited');
                 });
+        },
+        startTests: function(singleRun, done) {
+            var karma = require('karma').server;
+            var excludeFiles = [];
+            // TODO: DO I need to use config.karma.serverIntegrationSpecs;?
+
+            karma.start({
+                configFile:__dirname + '/../karma.conf.js',
+                singleRun: !!singleRun,
+                exclude: excludeFiles
+            }, karmaCompleted);
+
+            function karmaCompleted(karmaResult) {
+                log('karma completed');
+                if (karmaResult === 1)
+                {
+                    done('karma: tests failed with code ' + karmaResult);
+                } else
+                {
+                    done();
+                }
+            }
         }
     };
 

@@ -1,4 +1,4 @@
-/*jshint strict:false */
+/* jshint strict: false */
 
 var gulp = require('gulp');
 var config = require('./gulp/gulp.config')();
@@ -159,7 +159,7 @@ gulp.task('optimise', ['inject'], function () {
         .pipe($.inject(gulp.src( // TODO: Shouldn't this be moved to inject?
             config.build.dev.templates + config.templateCache.file,
             {read: false}),
-            { starttag: '<!-- inject:templates:{{ext}} -->'}
+            {starttag: '<!-- inject:templates:{{ext}} -->'}
         ))
         .pipe(assets)
         // CSS Optimization
@@ -181,7 +181,7 @@ gulp.task('optimise', ['inject'], function () {
         .pipe($.useref())
         // Rename Versioned Files
         .pipe($.revReplace())
-        .pipe(gulp.dest(config.build.release.root))
+        .pipe(gulp.dest(config.build.release.root));
 });
 
 gulp.task('build', ['optimise', 'images', 'fonts'], function () {
@@ -222,10 +222,16 @@ gulp.task('increment-version', function() {
         .pipe(gulp.dest(config.project.root));
 });
 
+/* Testing Tasks
+--------------------*/
+
+gulp.task('test', ['analyse', 'templatecache'], function(done) {
+    helper.startTests(true /* singleRun */, done);
+});
+
 /* Serve Tasks
  ----------------*/
 
-var browserSync = require('browser-sync');
 gulp.task('serve-dev', ['inject'], function () {
     return helper.serve(true);
 });
@@ -233,4 +239,3 @@ gulp.task('serve-dev', ['inject'], function () {
 gulp.task('serve-build', ['build'], function () {
     return helper.serve(false);
 });
-

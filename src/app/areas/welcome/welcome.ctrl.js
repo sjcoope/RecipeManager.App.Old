@@ -5,7 +5,7 @@
         .module('RecipeManager.App.Welcome')
         .controller('WelcomeCtrl', WelcomeCtrl);
 
-    function WelcomeCtrl($q)
+    function WelcomeCtrl()
     {
         /* jshint validthis: true */
         var vm = this;
