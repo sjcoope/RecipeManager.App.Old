@@ -100,7 +100,7 @@ gulp.task('clean-code', function () {
 gulp.task('clean-templates', function() {
     helper.log('Cleaning dev templates');
     helper.clean(config.build.dev.templates);
-})
+});
 
 /* Injection Tasks
  --------------------------*/
