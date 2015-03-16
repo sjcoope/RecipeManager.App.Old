@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "An angularJS application built to manage recipes.",
   "author": "Simon Coope",
+  "repository": {
+    "type": "git",
+    "url": "https://simoncoope@bitbucket.org/recipemanager/app.git"
+  },
   "license": "ISC",
   "devDependencies": {
     "bower": "^1.3.12",
