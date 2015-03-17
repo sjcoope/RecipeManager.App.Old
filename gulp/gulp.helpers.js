@@ -92,22 +92,21 @@ module.exports = function () {
                 configFile:__dirname + '/../karma.conf.js',
                 singleRun: !!singleRun,
                 exclude: excludeFiles
-            }, function(karmaResult) {
-                return karmaCompleted(karmaResult);
             });
 
-            function karmaCompleted(karmaResult) {
-                log('karma completed');
-                if (karmaResult === 1)
-                {
-                    log('karma: tests failed with code ' + karmaResult);
-                } else
-                {
-                    log('karam: tests passed');
-                }
-
-                return karmaResult;
-            }
+            // TODO: Clean up.
+            //function karmaCompleted(karmaResult) {
+            //    log('karma completed');
+            //    if (karmaResult === 1)
+            //    {
+            //        log('karma: tests failed with code ' + karmaResult);
+            //    } else
+            //    {
+            //        log('karam: tests passed');
+            //    }
+            //
+            //    return karmaResult;
+            //}
         }
     };
 
