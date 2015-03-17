@@ -83,7 +83,7 @@ module.exports = function () {
                     log('*** nodemon exited');
                 });
         },
-        startTests: function(singleRun, done) {
+        startTests: function(singleRun) {
             var karma = require('karma').server;
             var excludeFiles = [];
             // TODO: DO I need to use config.karma.serverIntegrationSpecs;?
@@ -92,19 +92,21 @@ module.exports = function () {
                 configFile:__dirname + '/../karma.conf.js',
                 singleRun: !!singleRun,
                 exclude: excludeFiles
-            }, function() {
-                karmaCompleted();
+            }, function(karmaResult) {
+                return karmaCompleted(karmaResult);
             });
 
             function karmaCompleted(karmaResult) {
                 log('karma completed');
                 if (karmaResult === 1)
                 {
-                    done('karma: tests failed with code ' + karmaResult);
+                    log('karma: tests failed with code ' + karmaResult);
                 } else
                 {
-                    done();
+                    log('karam: tests passed');
                 }
+
+                return karmaResult;
             }
         }
     };

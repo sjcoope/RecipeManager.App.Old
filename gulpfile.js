@@ -228,8 +228,8 @@ gulp.task('increment-version', function() {
 /* Testing Tasks
 --------------------*/
 
-gulp.task('test', ['analyse', 'templatecache'], function(done) {
-    helper.startTests(true /* singleRun */, done);
+gulp.task('test', ['analyse', 'templatecache'], function() {
+    helper.startTests(true /* singleRun */);
 });
 
 /* Serve Tasks
