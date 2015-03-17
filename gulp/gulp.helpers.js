@@ -93,20 +93,6 @@ module.exports = function () {
                 singleRun: !!singleRun,
                 exclude: excludeFiles
             });
-
-            // TODO: Clean up.
-            //function karmaCompleted(karmaResult) {
-            //    log('karma completed');
-            //    if (karmaResult === 1)
-            //    {
-            //        log('karma: tests failed with code ' + karmaResult);
-            //    } else
-            //    {
-            //        log('karam: tests passed');
-            //    }
-            //
-            //    return karmaResult;
-            //}
         }
     };
 
