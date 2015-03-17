@@ -92,7 +92,9 @@ module.exports = function () {
                 configFile:__dirname + '/../karma.conf.js',
                 singleRun: !!singleRun,
                 exclude: excludeFiles
-            }, karmaCompleted);
+            }, function() {
+                karmaCompleted();
+            });
 
             function karmaCompleted(karmaResult) {
                 log('karma completed');
