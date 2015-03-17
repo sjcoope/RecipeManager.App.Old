@@ -96,7 +96,8 @@ module.exports = function () {
                 reporters: [
                     {type: 'html', subdir: 'report-html'},
                     {type: 'lcov', subdir: 'report-lcov'},
-                    {type: 'text-summary'}
+                    {type: 'text-summary'},
+                    {type: 'teamcity'}
                 ]
             },
             preprocessors: {}[srcRoot + '**/!(*.test)+(.js)'] = ['coverage'],
