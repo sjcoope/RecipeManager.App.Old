@@ -50,10 +50,6 @@ gulp.task('fonts', ['clean-fonts'], function () {
     return gulp
         .src(config.app.fontFiles)
         .pipe(gulp.dest(config.build.release.fonts));
-
-    //return gulp
-    //    .src(config.app.fontFiles)
-    //    .pipe(gulp.dest(config.build.release.fonts));
 });
 
 gulp.task('images', ['clean-images'], function () {
@@ -92,8 +88,8 @@ gulp.task('clean-images', function () {
 gulp.task('clean-code', function () {
     helper.log('Cleaning all code');
     helper.clean([
-        config.build.dev.root + '**/*.js',
-        config.build.release + '**/*.html'
+        config.build.release.root + '**/*.js',
+        config.build.release.root + '**/*.html'
     ]);
 });
 
@@ -114,6 +110,7 @@ gulp.task('wiredep', function () {
 
         .src(config.app.indexFile)
         .pipe(wiredep({
+            devDependencies: true,
             directory: config.bower.directory,
             bowerJson: require(config.bower.json),
             ignorePath: config.bower.ignorePath
