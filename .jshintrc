@@ -86,6 +86,9 @@
   "globals"       : {
     "angular": false,
     "require": false,
-    "module": false
+    "module": false,
+    "describe": false,
+    "expect": false,
+    "it": false
   }        // additional predefined global variables
 }

@@ -1,4 +1,4 @@
-/*jshint strict:false */
+/* jshint strict: false */
 
 var gulp = require('gulp');
 var config = require('./gulp/gulp.config')();
@@ -13,7 +13,7 @@ $.sass = require('gulp-sass');
  ----------------------------
  ----------------------------*/
 
-gulp.task('default', ['serve-dev']);
+gulp.task('default', ['help']);
 
 gulp.task('help', $.taskListing);
 
@@ -50,10 +50,6 @@ gulp.task('fonts', ['clean-fonts'], function () {
     return gulp
         .src(config.app.fontFiles)
         .pipe(gulp.dest(config.build.release.fonts));
-
-    //return gulp
-    //    .src(config.app.fontFiles)
-    //    .pipe(gulp.dest(config.build.release.fonts));
 });
 
 gulp.task('images', ['clean-images'], function () {
@@ -92,10 +88,14 @@ gulp.task('clean-images', function () {
 gulp.task('clean-code', function () {
     helper.log('Cleaning all code');
     helper.clean([
-        config.build.dev.root + '**/*.js',
-        config.build.release + '**/*.html',
-        config.build.release + 'js/**/*.html', // TODO: Is this required?
+        config.build.release.root + '**/*.js',
+        config.build.release.root + '**/*.html'
     ]);
+});
+
+gulp.task('clean-templates', function() {
+    helper.log('Cleaning dev templates');
+    helper.clean(config.build.dev.templates);
 });
 
 /* Injection Tasks
@@ -110,6 +110,7 @@ gulp.task('wiredep', function () {
 
         .src(config.app.indexFile)
         .pipe(wiredep({
+            devDependencies: true,
             directory: config.bower.directory,
             bowerJson: require(config.bower.json),
             ignorePath: config.bower.ignorePath
@@ -119,7 +120,7 @@ gulp.task('wiredep', function () {
 });
 
 gulp.task('inject', ['wiredep', 'styles', 'templatecache'], function () {
-    helper.log('injecting our custom css');
+    helper.log('injecting our custom css and template cache');
 
     return gulp
         .src(config.app.indexFile)
@@ -130,8 +131,7 @@ gulp.task('inject', ['wiredep', 'styles', 'templatecache'], function () {
 /* Optimising Tasks
  ------------------------*/
 
-// TODO: Handle cleaning before build and optimizing.
-gulp.task('templatecache', ['clean-code'], function () {
+gulp.task('templatecache', ['clean-templates'], function () {
     helper.log('Creating AngularJS TemplateCache');
 
     return gulp
@@ -156,10 +156,10 @@ gulp.task('optimise', ['inject'], function () {
     return gulp
         .src(config.app.indexFile)
         .pipe($.plumber())
-        .pipe($.inject(gulp.src( // TODO: Shouldn't this be moved to inject?
+        .pipe($.inject(gulp.src( // Injection handled here as it's only needed on build (not for DEV as we need templates to debug)
             config.build.dev.templates + config.templateCache.file,
             {read: false}),
-            { starttag: '<!-- inject:templates:{{ext}} -->'}
+            {starttag: '<!-- inject:templates:{{ext}} -->'}
         ))
         .pipe(assets)
         // CSS Optimization
@@ -181,10 +181,10 @@ gulp.task('optimise', ['inject'], function () {
         .pipe($.useref())
         // Rename Versioned Files
         .pipe($.revReplace())
-        .pipe(gulp.dest(config.build.release.root))
+        .pipe(gulp.dest(config.build.release.root));
 });
 
-gulp.task('build', ['optimise', 'images', 'fonts'], function () {
+gulp.task('build', ['clean-code', 'optimise', 'images', 'fonts'], function () {
     helper.log('Building release.');
 
     // Remove the dev build
@@ -222,10 +222,16 @@ gulp.task('increment-version', function() {
         .pipe(gulp.dest(config.project.root));
 });
 
+/* Testing Tasks
+--------------------*/
+
+gulp.task('test', ['analyse', 'templatecache'], function() {
+    helper.startTests(true /* singleRun */);
+});
+
 /* Serve Tasks
  ----------------*/
 
-var browserSync = require('browser-sync');
 gulp.task('serve-dev', ['inject'], function () {
     return helper.serve(true);
 });
@@ -233,4 +239,3 @@ gulp.task('serve-dev', ['inject'], function () {
 gulp.task('serve-build', ['build'], function () {
     return helper.serve(false);
 });
-

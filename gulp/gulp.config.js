@@ -1,10 +1,29 @@
 module.exports = function () {
     'use strict';
 
+    // Paths
     var releaseRoot = './build/release/';
     var devRoot = './build/dev/';
     var srcRoot = './src/';
     var appRoot = srcRoot + 'app/';
+    var reportRoot = './report/';
+    var testsRoot = srcRoot + 'tests/';
+
+    // Bower settings
+    var wiredep = require('wiredep');
+    var bowerFiles = wiredep({devDependencies: true}).js;
+
+    // Settings with multiple uses
+    var devTemplatesPath = devRoot + 'templates/';
+    var templateFileName = 'templates.js';
+    var serverIntegrationTests = [testsRoot + '**/*.test.js'];
+
+    // Karma Settings
+    var karmaFiles = bowerFiles;
+    karmaFiles.push(testsRoot + '/helpers/**/*.js');
+    karmaFiles.push(appRoot + '**/*.module.js');
+    karmaFiles.push(appRoot + '**/*.js');
+    karmaFiles.push(devTemplatesPath + templateFileName);
 
     var config = {
 
@@ -13,7 +32,7 @@ module.exports = function () {
         build: {
             dev: {
                 root: devRoot,
-                templates: devRoot + 'templates/',
+                templates: devTemplatesPath,
                 styles: devRoot + 'styles/'
             },
             release: {
@@ -29,7 +48,7 @@ module.exports = function () {
             jsFiles: [
                 appRoot + '**/*.module.js',
                 appRoot + '**/*.js',
-                '!' + appRoot + '**/*.spec.js',
+                '!' + appRoot + '**/*.test.js',
             ],
             fontFiles: './bower_components/bootstrap/fonts/*.*',
             imageFiles: srcRoot + 'content/images/**/*.*',
@@ -56,12 +75,33 @@ module.exports = function () {
         /* TEMPLATE CACHE
          ------------------*/
         templateCache: {
-            file: 'templates.js',
+            file: templateFileName,
             options: {
                 module: 'RecipeManager.App.Core',
                 standAlone: false,
                 root: 'app/'
             }
+        },
+
+        /* KARMA & TESTING SETTINGS
+        -------------------*/
+        // bowerFiles,
+
+        karma: {
+            configFile: './karma.conf.js',
+            files: karmaFiles,
+            exclude: [],
+            coverage: {
+                dir: reportRoot + 'coverage',
+                reporters: [
+                    {type: 'html', subdir: 'report-html'},
+                    {type: 'lcov', subdir: 'report-lcov'},
+                    {type: 'text-summary'},
+                    {type: 'teamcity'}
+                ]
+            },
+            preprocessors: {}[srcRoot + '**/!(*.test)+(.js)'] = ['coverage'],
+            serverIntegrationSpecs: serverIntegrationTests
         },
 
         /* NODE SETTINGS

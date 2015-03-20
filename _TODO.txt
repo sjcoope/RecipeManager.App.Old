@@ -1,0 +1,4 @@
+- Add version bump to build process.  Assume minor unless specified in args?
+- Clean up TODOs in code.
+- Work through gulp file and ensure cleaning is done at the right time, etc.
+- Setup Karma and test runner.  Setup integration tests
