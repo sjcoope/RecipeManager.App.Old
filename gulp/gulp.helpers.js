@@ -1,3 +1,5 @@
+/* jshint ignore: start */
+
 module.exports = function () {
     /*jslint node: true */
     'use strict';
