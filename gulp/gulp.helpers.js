@@ -1,7 +1,7 @@
 /* jshint ignore: start */
 
 module.exports = function () {
-    /*jslint node: true */
+
     'use strict';
 
     // Dependencies
@@ -11,7 +11,6 @@ module.exports = function () {
     var browserSync = require('browser-sync');
     var config = require('./gulp.config')();
 
-    // TODO: Put somewhere else.
     function log(msg) {
         if (typeof(msg) === 'object') {
             for (var item in msg) {
