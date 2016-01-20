@@ -39,5 +39,10 @@ gulp.task('optimise', ['inject'], function () {
         .pipe($.useref())
         // Rename Versioned Files
         .pipe($.revReplace())
+        // Write out build files
+        .pipe(gulp.dest(config.build.release.root))
+        // Write out manifest
+        .pipe($.rev.manifest())
         .pipe(gulp.dest(config.build.release.root));
+        
 });

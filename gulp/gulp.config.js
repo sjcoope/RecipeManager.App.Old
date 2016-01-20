@@ -50,6 +50,7 @@ module.exports = function () {
         },
         project: {
             root: './',
+            packages: ['./package.json', './bower.json'],
             jsFiles: [
                 jsRoot + '**/*.js',
                 './*.js',
