@@ -84,17 +84,17 @@ module.exports = function () {
                     log('*** nodemon exited');
                 });
         },
-        startTests: function(singleRun) {
-            var karma = require('karma').server;
-            var excludeFiles = [];
-            // TODO: DO I need to use config.karma.serverIntegrationSpecs;?
-
-            karma.start({
-                configFile:__dirname + '/../karma.conf.js',
-                singleRun: !!singleRun,
-                exclude: excludeFiles
-            });
-        }
+//         startTests: function(singleRun) {
+//             var karma = require('karma').server;
+//             var excludeFiles = [];
+//             // TODO: DO I need to use config.karma.serverIntegrationSpecs;?
+// 
+//             karma.start({
+//                 configFile:__dirname + '/../karma.conf.js',
+//                 singleRun: !!singleRun,
+//                 exclude: excludeFiles
+//             });
+//         }
     };
 
     return helpers;

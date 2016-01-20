@@ -7,6 +7,7 @@ module.exports = function () {
     var releaseRoot = './build/release/';
     var devRoot = './build/dev/';
     var srcRoot = './src/';
+    var jsRoot = srcRoot + 'js/';
     var appRoot = srcRoot + 'app/';
 
 
@@ -35,9 +36,9 @@ module.exports = function () {
         app: {
             root: srcRoot,
             jsFiles: [
-                appRoot + '**/*.module.js',
-                appRoot + '**/*.js',
-                '!' + appRoot + '**/*.test.js',
+                jsRoot + '**/*.module.js',
+                jsRoot + '**/*.js',
+                '!' + jsRoot + '**/*.test.js',
             ],
             fontFiles: './bower_components/bootstrap/fonts/*.*',
             imageFiles: srcRoot + 'content/images/**/*.*',
@@ -50,7 +51,7 @@ module.exports = function () {
         project: {
             root: './',
             jsFiles: [
-                appRoot + '**/*.js',
+                jsRoot + '**/*.js',
                 './*.js',
                 './gulp/*.js'
             ]
