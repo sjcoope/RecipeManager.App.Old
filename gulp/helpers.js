@@ -9,7 +9,7 @@ module.exports = function () {
     var del = require('del');
     var nodemon = require('gulp-nodemon');
     var browserSync = require('browser-sync');
-    var config = require('./gulp.config')();
+    var config = require('./config')();
 
     function log(msg) {
         if (typeof(msg) === 'object') {
@@ -36,13 +36,13 @@ module.exports = function () {
         log: log,
         serve: function (isDev) {
             return nodemon({
-                script: config.nodeServer,
+                script: config.server.nodeServer,
                 delayTime: 1,
                 env: {
-                    'PORT': config.defaultPort,
+                    'PORT': config.server.defaultPort,
                     'NODE_ENV': isDev ? 'dev' : 'build'
                 },
-                watch: config.server
+                watch: config.server.root
             })
                 .on('restart', ['analyse'], function (ev) {
                     log('*** nodemon restarted');
@@ -56,11 +56,11 @@ module.exports = function () {
                     }
 
                     var options = {
-                        proxy: 'localhost:' + config.defaultPort,
+                        proxy: 'localhost:' + config.server.defaultPort,
                         port: 3000,
-                        files: [
+                        files: isDev ? [
                             './src/**/*.*'
-                        ],
+                        ] : [],
                         ghostMode: {
                             clicks: true,
                             location: false,
@@ -72,7 +72,7 @@ module.exports = function () {
                         logLevel: 'debug',
                         logPrefix: 'recipeManager',
                         notify: true,
-                        reloadDelay: 0 //1000
+                        reloadDelay: 500
                     };
 
                     browserSync(options);

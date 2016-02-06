@@ -1,4 +1,4 @@
-/*jshint node:true*/
+/* jshint ignore: start */
 'use strict';
 
 var express = require('express')
@@ -22,6 +22,7 @@ switch (environment) {
             four0four.send404(req, res);
         });
 
+        // Get the index file name from the manifest
         app.use('/*', express.static('./build/release/index.html'));
         break;
     default:

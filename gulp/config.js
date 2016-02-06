@@ -8,8 +8,8 @@ module.exports = function () {
     var devRoot = './build/dev/';
     var srcRoot = './src/';
     var jsRoot = srcRoot + 'js/';
+    var tsRoot = srcRoot + 'app/';
     var appRoot = srcRoot + 'app/';
-
 
     // Settings with multiple uses
     var devTemplatesPath = devRoot + 'templates/';
@@ -29,6 +29,8 @@ module.exports = function () {
                 root: releaseRoot,
                 fonts: releaseRoot + 'content/fonts/',
                 images: releaseRoot + 'content/images/',
+                jsFiles: releaseRoot + 'js/**/*.*',
+                cssFiles: releaseRoot + 'content**/*.*',
                 jsLibFile: 'lib.js',
                 jsAppFile: 'app.js'
             }
@@ -45,17 +47,20 @@ module.exports = function () {
             indexFile: srcRoot + 'index.html',
             htmlFiles: appRoot + '**/*.html',
             sassFiles: [
-                 srcRoot + 'content/sass/**/*.scss'
+                srcRoot + 'content/sass/**/*.scss'
             ]
         },
         project: {
             root: './',
             packages: ['./package.json', './bower.json'],
+            jsFolder: jsRoot + '*',
             jsFiles: [
                 jsRoot + '**/*.js',
-                './*.js',
-                './gulp/*.js'
-            ]
+            ],
+            tsFiles: [
+                tsRoot + '**/*.ts'
+            ],
+            tsLintConfig: './tslint.json'
         },
         //client: './src/',
 
@@ -66,20 +71,22 @@ module.exports = function () {
             options: {
                 module: 'RecipeManager.App.Core',
                 standAlone: false,
-                root: 'app/'
+                root: './src/app/'
             }
         },
 
-        /* NODE SETTINGS
+        /* SERVER SETTINGS
          ------------------*/
-        server: './server/',
-        nodeServer: './server/server.js',
-        defaultPort: '7203',
+        server: {
+            root: './server/',
+            nodeServer: './server/server.js',
+            defaultPort: '7203',
+        },
 
         /* BOWER INFO
          -------------------*/
         bower: {
-            json: '../../bower.json',
+            json: '../../bower.json', // Path from where wiredep called, not from root.
             directory: './bower_components/',
             ignorePath: '..' // Gets absolute path for bower components.
         }

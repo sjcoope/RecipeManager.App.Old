@@ -21,7 +21,7 @@
 </head>
 <body data-ng-app="RecipeManager.App" ng-strict-di>
 
-<div data-ng-include data-src="'app/areas/layout/shell.html'"></div>
+<div data-ng-include data-src="'./src/app/areas/layout/shell.html'"></div>
 
 <!-- build:js js/lib.js -->
 <!-- bower:js -->
@@ -37,15 +37,17 @@
 <script src="/src/js/app.module.js"></script>
 <script src="/src/js/core/_core.module.js"></script>
 <script src="/src/js/areas/layout/_layout.module.js"></script>
+<script src="/src/js/areas/recipes/_recipes.module.js"></script>
+<script src="/src/js/areas/welcome/_welcome.module.js"></script>
 <script src="/src/js/core/router/_router.module.js"></script>
 <script src="/src/js/areas/layout/header.ctrl.js"></script>
 <script src="/src/js/areas/layout/navigation.ctrl.js"></script>
 <script src="/src/js/areas/layout/shell.ctrl.js"></script>
+<script src="/src/js/areas/recipes/recipes.ctrl.js"></script>
+<script src="/src/js/areas/welcome/welcome.ctrl.js"></script>
 <!-- endinject -->
 
 <!-- inject:templates:js -->
-
-<script src="/build/dev/templates/templates.js"></script>
 
 <!-- endinject -->
 <!-- endbuild -->

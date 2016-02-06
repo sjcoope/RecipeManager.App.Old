@@ -1,58 +1,41 @@
 module RecipeManager.App.Core.Router {
-    var routeModule = angular.module('RecipeManager.App.Core.Router', [
+    let routeModule = angular.module('RecipeManager.App.Core.Router', [
         'ngRoute'
     ]);
     
     routeModule.config(routeModuleConfig);
-    
     routeModuleConfig.$inject = ['$routeProvider'];
-    function routeModuleConfig($routeProvider: ng.route.IRouteProvider) : void {
+    function routeModuleConfig($routeProvider: ng.route.IRouteProvider): void {
         
         // TODO: Get this from API?  Then when logged on navigation options will change?
-        var routes = [
+        [
             {
-                url: '/',
                 config: {
-                    templateUrl: 'app/areas/welcome/welcome.html',
                     controller: 'WelcomeCtrl',
                     controllerAs: 'vm',
-                    title: 'Welcome'
-                }
+                    templateUrl: './src/app/areas/welcome/welcome.html',
+                    title: 'Welcome',
+                },
+                url: '/',
             },
             {
-                url: '/features',
                 config: {
-                    templateUrl: 'app/areas/welcome/features.html',
-                    controller: 'FeaturesCtrl',
+                    controller: 'RecipesCtrl',
                     controllerAs: 'vm',
-                    title: 'Features'
-                }
+                    templateUrl: './src/app/areas/recipes/recipes.html',
+                    title: 'Features',
+                },
+                url: '/recipes',
             },
-            {
-                url: '/about',
-                config: {
-                    templateUrl: 'app/areas/welcome/about.html',
-                    controller: 'AboutCtrl',
-                    controllerAs: 'vm',
-                    title: 'About'
-                }
-            }
-        ];
-        
-        routes.forEach(function(route) {
+        ].forEach(function(route) {
             $routeProvider.when(route.url, route.config);
         });
         $routeProvider.otherwise({redirectTo: '/'});
     }
     
     routeModule.run(routeModuleRun);
-    function routeModuleRun() : void {
+    routeModuleRun.$inject = ['$route'];
+    function routeModuleRun($route: ng.route.IRouteProvider): void {
         console.log('Routes module has started...');
     }
-    
-    // routeModule.$inject = '[$route]';
-    // function routeModuleRun($route : ng.route.IRouteProvider) : void {
-    //     $route.reload();
-    //     console.log('Routes Module has started....');
-    // }
 }
