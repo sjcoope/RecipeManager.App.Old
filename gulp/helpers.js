@@ -1,5 +1,3 @@
-/* jshint ignore: start */
-
 module.exports = function () {
 
     'use strict';

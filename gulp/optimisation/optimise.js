@@ -1,5 +1,3 @@
-/* jshint ignore: start */
-
 module.exports = function (gulp, config, helper, $) {
     return function () {
         helper.log('Optimizing the JS, HTML and CSS');
@@ -9,6 +7,7 @@ module.exports = function (gulp, config, helper, $) {
             .pipe(gulp.dest(config.build.release.root));
     }
 
+    // TODO: Remove?  Needed?
     //     var concatenateAssets = $.useref({ searchPath: './' }); //List of assets in index.html to be concatenated
     //     var cssFilter = $.filter(['**/*.css'], { restore: true });
     //     var jsLibFilter = $.filter(['**/' + config.build.release.jsLibFile], { restore: true });
