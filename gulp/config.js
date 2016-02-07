@@ -53,14 +53,16 @@ module.exports = function () {
         project: {
             root: './',
             packages: ['./package.json', './bower.json'],
-            jsFolder: jsRoot + '*',
+            jsFolder: jsRoot,
             jsFiles: [
                 jsRoot + '**/*.js',
             ],
             tsFiles: [
-                tsRoot + '**/*.ts'
+                tsRoot + '**/*.ts',
+                './typings/**/*.ts'
             ],
-            tsLintConfig: './tslint.json'
+            tsLintConfig: './tslint.json',
+            tsConfig: './tsconfig.json'
         },
         //client: './src/',
 

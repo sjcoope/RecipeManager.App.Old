@@ -37,13 +37,13 @@ gulp.task('analyse-ts', task('analysis/analyse-ts'));
 
 /* Build
 --------------------*/
-gulp.task('build', ['clean-code', 'optimise', 'bump-version', 'images', 'fonts'], task('build/build'));
-gulp.task('bump-version', task('build/bump-version'));
-gulp.task('inject', ['wire-dep', 'styles', 'template-cache'], task('build/inject'));
-gulp.task('wire-dep', task('build/wire-dep'));
-gulp.task('serve-dev', ['analyse-ts', 'inject'], task('build/serve-dev'));
-gulp.task('serve-build', ['analyse-ts', 'build'], task('build/serve-build'));
-gulp.task('ts-compile', task('build/ts-compile'));
+// gulp.task('build', ['clean-code', 'optimise', 'bump-version', 'images', 'fonts'], task('build/build'));
+// gulp.task('bump-version', task('build/bump-version'));
+// gulp.task('inject', ['wire-dep', 'styles', 'template-cache'], task('build/inject'));
+// gulp.task('wire-dep', task('build/wire-dep'));
+// gulp.task('serve-dev', ['analyse-ts', 'inject'], task('build/serve-dev'));
+// gulp.task('serve-build', ['analyse-ts', 'build'], task('build/serve-build'));
+gulp.task('compile-ts', task('build/compile-ts'));
 
 /* Optimisation
 --------------------*/
