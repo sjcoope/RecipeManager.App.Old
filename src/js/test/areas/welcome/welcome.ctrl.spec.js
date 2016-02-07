@@ -1,0 +1,7 @@
+describe("WelcomeCtrl", function () {
+    it("should work just as it is", function () {
+        expect(true).toBeTruthy();
+    });
+});
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvYXJlYXMvd2VsY29tZS93ZWxjb21lLmN0cmwuc3BlYy50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxRQUFRLENBQUMsYUFBYSxFQUFFO0lBRXBCLEVBQUUsQ0FBQywyQkFBMkIsRUFBRTtRQUM1QixNQUFNLENBQUMsSUFBSSxDQUFDLENBQUMsVUFBVSxFQUFFLENBQUM7SUFDOUIsQ0FBQyxDQUFDLENBQUM7QUFFUCxDQUFDLENBQUMsQ0FBQyIsImZpbGUiOiJ0ZXN0L2FyZWFzL3dlbGNvbWUvd2VsY29tZS5jdHJsLnNwZWMuanMiLCJzb3VyY2VzQ29udGVudCI6W251bGxdLCJzb3VyY2VSb290IjoiL3NvdXJjZS8ifQ==

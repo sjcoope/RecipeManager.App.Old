@@ -52,4 +52,4 @@ gulp.task('template-cache', ['clean-templates'], task('optimisation/template-cac
 
 /* Testing
 --------------------*/
-gulp.task('test', ['analyse-ts', 'templatecache'], task('test/test'));
+gulp.task('test', ['analyse-ts', 'compile-ts', 'template-cache'], task('test/test'));

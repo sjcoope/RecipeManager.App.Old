@@ -8,12 +8,20 @@ module.exports = function () {
     var devRoot = './build/dev/';
     var srcRoot = './src/';
     var jsRoot = srcRoot + 'js/';
-    var tsRoot = srcRoot + 'app/';
     var appRoot = srcRoot + 'app/';
+    var testRoot = srcRoot + 'test/';
+    var reportRoot = './report/';
 
     // Settings with multiple uses
     var devTemplatesPath = devRoot + 'templates/';
     var templateFileName = 'templates.js';
+    
+    // Karma files - includes test files and their dependencies.
+    var wiredep = require('wiredep');
+    var karmaFiles = wiredep({devDependencies: true}).js;
+    karmaFiles.push(jsRoot + '**/*.module.js');
+    karmaFiles.push(jsRoot + '**/*.js');
+    karmaFiles.push(devTemplatesPath + templateFileName);
 
     var config = {
 
@@ -58,10 +66,10 @@ module.exports = function () {
                 jsRoot + '**/*.js',
             ],
             tsFiles: [
-                tsRoot + '**/*.ts',
-                './typings/**/*.ts'
+                appRoot + '**/*.ts',
+                './typings/**/*.ts',
+                testRoot + '**/*.ts'
             ],
-            tsLintConfig: './tslint.json',
             tsConfig: './tsconfig.json'
         },
         //client: './src/',
@@ -91,6 +99,23 @@ module.exports = function () {
             json: '../../bower.json', // Path from where wiredep called, not from root.
             directory: './bower_components/',
             ignorePath: '..' // Gets absolute path for bower components.
+        },
+        
+        /* KARMA SETTINGS
+        ----------------------*/
+        karma: {
+          files: karmaFiles,
+          exclude: [],
+          coverage: {
+                dir: reportRoot + 'coverage',
+                reporters: [
+                    {type: 'html', subdir: 'report-html'},
+                    {type: 'lcov', subdir: 'report-lcov'},
+                    {type: 'text-summary'},
+                    {type: 'teamcity'}
+                ]
+            },
+          preprocessors: {}[srcRoot + '**/!(*.test)+(.js)'] = ['coverage'],
         }
     };
 
