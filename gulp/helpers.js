@@ -42,7 +42,7 @@ module.exports = function () {
                 },
                 watch: config.server.root
             })
-                .on('restart', ['analyse'], function (ev) {
+                .on('restart', ['compile-ts'], function (ev) {
                     log('*** nodemon restarted');
                     log('files changed on restart:\n' + ev);
                 })

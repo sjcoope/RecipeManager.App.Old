@@ -1,5 +1,3 @@
-module RecipeManager.App.Areas.Layout {
-    angular.module('RecipeManager.App.Areas.Welcome', [
-        
-    ]);
+module RecipeManager.App.Areas.Welcome {
+    angular.module('RecipeManager.App.Areas.Welcome', []);
 }

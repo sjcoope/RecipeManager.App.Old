@@ -1,5 +1,3 @@
-/* jshint ignore: start */
-
 module.exports = function (gulp, config, helper, $) {
     return function () {
        helper.log('Analysing JavaScript source with JSHint and JSCS');

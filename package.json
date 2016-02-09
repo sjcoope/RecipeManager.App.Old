@@ -1,6 +1,6 @@
 {
   "name": "SJCNet.RecipeManager.App",
-  "version": "1.0.26",
+  "version": "1.0.47",
   "description": "An angularJS application built to manage recipes.",
   "author": "Simon Coope",
   "private": true,
@@ -57,7 +57,7 @@
     "karma-phantomjs-launcher": "^0.2.3",
     "karma-sinon": "^1.0.4",
     "phantomjs": "^1.9.15",
-    "run-sequence": "^1.0.2",
+    "run-sequence": "^1.1.5",
     "sinon": "^1.12.2",
     "tslint": "^3.3.0",
     "typescript": "^1.7.5",
