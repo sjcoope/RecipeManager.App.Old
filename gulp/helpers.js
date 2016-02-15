@@ -9,16 +9,21 @@ module.exports = function () {
     var browserSync = require('browser-sync');
     var config = require('./config')();
 
-    function log(msg) {
+    function log(msg, color) {
+        if(!color) { color = util.colors.green; }
         if (typeof(msg) === 'object') {
             for (var item in msg) {
                 if (msg.hasOwnProperty(item)) {
-                    util.log(util.colors.green(msg[item]));
+                    util.log(color(msg[item]));
                 }
             }
         } else {
-            util.log(util.colors.green(msg));
+            util.log(color(msg));
         }
+    }
+
+    function logHeader(msg) {
+        log(msg, util.colors.yellow);
     }
 
     var helpers = {
@@ -32,6 +37,7 @@ module.exports = function () {
             this.emit('end');
         },
         log: log,
+        logHeader: logHeader,
         serve: function (isDev) {
             return nodemon({
                 script: config.server.nodeServer,
@@ -42,7 +48,7 @@ module.exports = function () {
                 },
                 watch: config.server.root
             })
-                .on('restart', ['compile-ts'], function (ev) {
+                .on('restart', ['build-dev'], function (ev) {
                     log('*** nodemon restarted');
                     log('files changed on restart:\n' + ev);
                 })

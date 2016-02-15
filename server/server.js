@@ -13,7 +13,7 @@ switch (environment) {
 
         app.use(express.static('./build/'));
         app.use(express.static('./'));
-        // All the assets are served at this point.
+        // // All the assets are served at this point.
 
         app.use(express.static('./build/release/'));
 
@@ -22,7 +22,7 @@ switch (environment) {
             four0four.send404(req, res);
         });
 
-        // Get the index file name from the manifest
+        // Get the index file
         app.use('/*', express.static('./build/release/index.html'));
         break;
     default:

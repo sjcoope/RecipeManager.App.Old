@@ -8,8 +8,8 @@ module RecipeManager.App {
 
             // Custom Area Modules
             'RecipeManager.App.Areas.Layout',
-            // 'RecipeManager.App.Areas.Welcome',
-            // 'RecipeManager.App.Areas.Recipes',
+            'RecipeManager.App.Areas.Welcome',
+            'RecipeManager.App.Areas.Recipes',
     ]);
 
     appModule.run(appModuleRun);

@@ -11,31 +11,31 @@ module.exports = function (gulp, config, helper, $) {
             .src(config.app.indexFile)
             .pipe($.plumber())
             // Inject template cache references into App.js (injection handled here as it's needed for build and not dev)
-            // .pipe($.inject(gulp.src( 
-            //     config.build.dev.templates + config.templateCache.file,
-            //     { read: false }),
-            //     { starttag: '<!-- inject:templates:{{ext}} -->' }
-            // ))
+            .pipe($.inject(gulp.src( 
+                config.build.dev.templates + config.templateCache.file,
+                { read: false }),
+                { starttag: '<!-- inject:templates:{{ext}} -->' }
+            ))
             // Concatenate the assets in the index file
-            //.pipe(concatenateAssets)
+            .pipe(concatenateAssets)
             // CSS Optimization
-            //.pipe(cssFilter)
-            //.pipe($.csso())
-            //.pipe($.rev())
-            //.pipe(cssFilter.restore)
+            .pipe(cssFilter)
+            .pipe($.csso())
+            .pipe($.rev())
+            .pipe(cssFilter.restore)
             // Lib Javascript Optimization
-            //.pipe(jsLibFilter)
-            //.pipe($.uglify())
-            //.pipe($.rev())
-            //.pipe(jsLibFilter.restore)
+            .pipe(jsLibFilter)
+            .pipe($.uglify())
+            .pipe($.rev())
+            .pipe(jsLibFilter.restore)
             // App Javascript Optimization
-            //.pipe(jsAppFilter)
-            //.pipe($.ngAnnotate())
-            //.pipe($.uglify())
-            //.pipe($.rev())
-            //.pipe(jsAppFilter.restore)
+            .pipe(jsAppFilter)
+            .pipe($.ngAnnotate())
+            .pipe($.uglify())
+            .pipe($.rev())
+            .pipe(jsAppFilter.restore)
             // Update the CSS and JS refs in index after cache busting
-            //.pipe($.revReplace())
+            .pipe($.revReplace())
             // Write out build files
             .pipe(gulp.dest(config.build.release.root));       
     };

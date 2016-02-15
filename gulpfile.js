@@ -14,7 +14,8 @@ gulp.task('help', $.taskListing);
 
 /* Cleaning
 --------------------*/
-gulp.task('clean-build', task('clean/clean-build'));
+gulp.task('clean-build-dev', task('clean/clean-build-dev'));
+gulp.task('clean-build-release', task('clean/clean-build-release'));
 gulp.task('clean-fonts', task('clean/clean-fonts'));
 gulp.task('clean-images', task('clean/clean-images'));
 gulp.task('clean-styles', task('clean/clean-styles'));
@@ -35,9 +36,9 @@ gulp.task('analyse-ts', task('analysis/analyse-ts'));
 /* Build
 --------------------*/
 gulp.task('build-release', task('build/release/build-release'));
-gulp.task('pre-build-release', ['compile-ts', 'clean-build'], task('build/release/pre-build-release'));
-gulp.task('execute-build-release', task('build/release/execute-build-release'));
-gulp.task('post-build-release', ['bump-version'], task('build/release/post-build-release'));
+gulp.task('pre-build-release', ['compile-ts', 'clean-build-dev', 'clean-build-release'], task('build/release/pre-build-release'));
+gulp.task('execute-build-release', ['images', 'fonts', 'optimise-release'], task('build/release/execute-build-release'));
+gulp.task('post-build-release', ['bump-version', 'clean-build-dev'], task('build/release/post-build-release'));
 
 gulp.task('build-dev', task('build/dev/build-dev'));
 gulp.task('pre-build-dev', ['clean-build', 'compile-ts'], task('build/dev/pre-build-dev'));

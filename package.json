@@ -1,6 +1,6 @@
 {
   "name": "SJCNet.RecipeManager.App",
-  "version": "1.0.47",
+  "version": "1.0.71",
   "description": "An angularJS application built to manage recipes.",
   "author": "Simon Coope",
   "private": true,
