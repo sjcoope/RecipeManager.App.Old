@@ -1,5 +1,6 @@
 module.exports = function (gulp, config, helper, $) {
-    return function () {
+    return function (callback) {
         helper.logHeader('POST BUILD TASKS COMPLETE!');
+        callback();
     };
 };

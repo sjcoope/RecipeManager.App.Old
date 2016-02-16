@@ -10,7 +10,7 @@ module.exports = function (gulp, config, helper, $) {
     return function () {
         var args = require('yargs').argv;
         var msg = 'Bumping versions';
-        var type = args.type;
+        var type = !args ? args.type : 'patch'; // Patch is the default
         var version = args.version;
         var options = {};
 

@@ -1,8 +1,8 @@
 module.exports = function (gulp, config, helper, $) {
-    return function () {
+    return function (callback) {
         helper.logHeader('BUILDING RELEASE BUILD...');
 
         var runSequence = require('run-sequence');
-        runSequence('pre-build-release', 'execute-build-release', 'post-build-release');
+        return runSequence('pre-build-release', 'execute-build-release', 'post-build-release', callback);
     };
 };

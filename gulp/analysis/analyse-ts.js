@@ -5,7 +5,7 @@ module.exports = function (gulp, config, helper, $) {
         return gulp.src('./src/app/**/*.ts')
             .pipe($.tslint())
             .pipe($.tslint.report($.tslintStylish, {
-                emitError: false,
+                emitError: true,
                 sort: true,
                 bell: true,
                 fullPath: true
