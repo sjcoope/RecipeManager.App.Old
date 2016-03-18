@@ -48,6 +48,7 @@ module.exports = function () {
                 jsRoot + '**/*.js',
                 '!' + jsRoot + '**/*.spec.js',
             ],
+            tsFiles: appRoot + '**/*.ts',
             fontFiles: './bower_components/bootstrap/fonts/*.*',
             imageFiles: srcRoot + 'content/images/**/*.*',
             indexFile: srcRoot + 'index.html',

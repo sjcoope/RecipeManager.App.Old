@@ -41,7 +41,7 @@ gulp.task('execute-build-release', ['images', 'fonts', 'optimise-release'], task
 gulp.task('post-build-release', ['bump-version', 'clean-build-dev'], task('build/release/post-build-release'));
 
 gulp.task('build-dev', task('build/dev/build-dev'));
-gulp.task('pre-build-dev', ['clean-build', 'compile-ts'], task('build/dev/pre-build-dev'));
+gulp.task('pre-build-dev', ['clean-build-dev', 'compile-ts'], task('build/dev/pre-build-dev'));
 gulp.task('execute-build-dev', ['inject'], task('build/dev/execute-build-dev'));
 
 gulp.task('bump-version', task('build/bump-version'));

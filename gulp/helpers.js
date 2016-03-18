@@ -1,8 +1,9 @@
-module.exports = function () {
+module.exports = function() {
 
     'use strict';
 
     // Dependencies
+    var gulp = require('gulp');
     var util = require('gulp-util');
     var del = require('del');
     var nodemon = require('gulp-nodemon');
@@ -10,8 +11,8 @@ module.exports = function () {
     var config = require('./config')();
 
     function log(msg, color) {
-        if(!color) { color = util.colors.green; }
-        if (typeof(msg) === 'object') {
+        if (!color) { color = util.colors.green; }
+        if (typeof (msg) === 'object') {
             for (var item in msg) {
                 if (msg.hasOwnProperty(item)) {
                     util.log(color(msg[item]));
@@ -26,11 +27,50 @@ module.exports = function () {
         log(msg, util.colors.yellow);
     }
 
+    function setWatches() {
+        gulp.watch(config.app.sassFiles, ['styles'])
+            .on('change', function() {
+                log('SASS changes made!');
+            });
+
+        gulp.watch(config.app.htmlFiles, ['template-cache'])
+            .on('change', function() {
+                log('HTML changes made...');
+            });
+
+        gulp.watch(config.app.tsFiles, ['compile-ts'])
+            .on('change', function() {
+                log('Typescript changes made...');
+            });
+    }
+
+    function activateBrowserSync(isDev) {
+        browserSync({
+            proxy: 'localhost:' + config.server.defaultPort,
+            port: 3000,
+            files: isDev ? [
+                './src/**/*.*'
+            ] : [],
+            ghostMode: {
+                clicks: true,
+                location: false,
+                forms: true,
+                scroll: true
+            },
+            injectChanges: true,
+            logFileChanges: true,
+            logLevel: 'debug',
+            logPrefix: 'recipeManager',
+            notify: true,
+            reloadDelay: 500
+        });
+    }
+
     var helpers = {
-        clean: function (path) {
-            del(path, {force: true});
+        clean: function(path) {
+            del(path, { force: true });
         },
-        errorLogger: function (error) {
+        errorLogger: function(error) {
             util.log(util.colors.red('*** Start of Error ***'));
             util.log(util.colors.red(error));
             util.log(util.colors.red('*** End of Error ***'));
@@ -38,7 +78,7 @@ module.exports = function () {
         },
         log: log,
         logHeader: logHeader,
-        serve: function (isDev) {
+        serve: function(isDev) {
             return nodemon({
                 script: config.server.nodeServer,
                 delayTime: 1,
@@ -48,43 +88,23 @@ module.exports = function () {
                 },
                 watch: config.server.root
             })
-                .on('restart', ['build-dev'], function (ev) {
+                .on('restart', function(ev) {
                     log('*** nodemon restarted');
                     log('files changed on restart:\n' + ev);
                 })
-                .on('start', function () {
+                .on('start', function() {
                     log('*** nodemon started');
 
-                    if (browserSync.active) {
-                        return;
+                    setWatches();
+
+                    if (!browserSync.active) {
+                        activateBrowserSync(isDev);
                     }
-
-                    var options = {
-                        proxy: 'localhost:' + config.server.defaultPort,
-                        port: 3000,
-                        files: isDev ? [
-                            './src/**/*.*'
-                        ] : [],
-                        ghostMode: {
-                            clicks: true,
-                            location: false,
-                            forms: true,
-                            scroll: true
-                        },
-                        injectChanges: true,
-                        logFileChanges: true,
-                        logLevel: 'debug',
-                        logPrefix: 'recipeManager',
-                        notify: true,
-                        reloadDelay: 500
-                    };
-
-                    browserSync(options);
                 })
-                .on('crash', function () {
+                .on('crash', function() {
                     log('*** nodemon crashed!!');
                 })
-                .on('exit', function () {
+                .on('exit', function() {
                     log('*** nodemon exited');
                 });
         },
@@ -94,7 +114,7 @@ module.exports = function () {
             // TODO: DO I need to use config.karma.serverIntegrationSpecs;?
 
             karma.start({
-                configFile:__dirname + '/../karma.conf.js',
+                configFile: __dirname + '/../karma.conf.js',
                 singleRun: !!singleRun,
                 exclude: excludeFiles
             });
